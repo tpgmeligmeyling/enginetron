@@ -1,0 +1,29 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+
+spawn telnet localhost 3663
+
+expect "*log(): Connected to FMOD Studio on ::1:3663.*"
+
+send -- "var event = studio.project.lookup(\"event:/Engine\");"
+send -- "\r"
+
+expect "*out():*"
+
+send -- "event.timeline.automationCurves\[0\].automationPoints\[0\].value = 3000;"
+send -- "\r"
+
+expect "out():*"
+
+send -- "sleep(5000);"
+send -- "\r"
+
+expect "out():*"
+
+send -- "event.timeline.automationCurves\[0\].automationPoints\[0\].value = 5000;"
+send -- "\r"
+
+expect "out():*"
+
+interact

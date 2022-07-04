@@ -1,0 +1,34 @@
+#!/bin/bash
+
+write_commands() {
+  
+  sleep 5
+  initial=1607170739727
+  
+  echo 'pluginSound.volume = 0'
+  echo 'var event = studio.project.lookup("event:/Engine");'
+  
+  while IFS=, read -r rpm load unused1 unused2 epoch
+  do
+      epoch=$(echo $epoch| sed -e 's/\r$//')
+      timelast=$(echo $epoch - $initial | bc)
+      wait=$(echo ${timelast}.0 / 1000.0 | bc -l)
+      initial=$epoch
+      echo "event.timeline.automationCurves[0].automationPoints[0].value = $rpm;"
+      sleep $wait
+	  done < <(tail -n +2 record1607170737164217000.csv)
+  
+  echo 'pluginSound.volume = -100'
+}
+
+main() {
+  if ! command -v telnet &> /dev/null
+  then
+    echo "telnet could not be found"
+    exit
+  fi
+  
+  write_commands | telnet localhost 3663
+}
+
+main
