@@ -5,7 +5,7 @@ import numpy as np
 import tensorflow as tf
 import scipy
 from hparams import hparams
-
+from scipy.io import wavfile
 
 def load_wav(path):
   return librosa.core.load(path, sr=hparams.sample_rate)[0]

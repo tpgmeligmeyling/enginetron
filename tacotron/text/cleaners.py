@@ -52,7 +52,7 @@ def expand_numbers(text):
 
 
 def lowercase(text):
-  return text.lower()
+  return text
 
 
 def collapse_whitespace(text):
@@ -65,9 +65,7 @@ def convert_to_ascii(text):
 
 def basic_cleaners(text):
   '''Basic pipeline that lowercases and collapses whitespace without transliteration.'''
-  text = lowercase(text)
-  text = collapse_whitespace(text)
-  return text
+  return collapse_whitespace(text)
 
 
 def transliteration_cleaners(text):

@@ -6,6 +6,7 @@ import subprocess
 import time
 import tensorflow as tf
 import traceback
+import scipy.io
 
 from datasets.datafeeder import DataFeeder
 from hparams import hparams, hparams_debug_string
